@@ -5,9 +5,116 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+ 
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.backgroundimg{
+  background-image: url("./Assets/pizza2.jpg");
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+  position: fixed;
+}
+
+nav{
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+
+}
+
+.pizzaButton {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+}
+
+.button {
+  width: 150px;
+  padding: 8px 11px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  border: 0;
+  border-radius: 5px;
+  letter-spacing: 2px;
+  outline: none;
+  background-color: #ce3c14;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.247);
+  text-align: center;
+}
+
+.link{
+  text-decoration: none;
+  color: white;
+  font-size: 1.4rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 10px 0;
+  /* font-size: 1.4rem; */
+}
+
+
+input,
+select,
+textarea {
+  width: 100%;
+  margin: 5px 0 0;
+  display: block;
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 10px;
+  transition: all 0.3s;
+  /* font-size: 1.4rem; */
+  letter-spacing: 0.5px;
+  background-color: white;
+}
+select {
+  height: 40px;
+  width: 325px;
+}
+
+select:focus {
+  outline: none;
+  border-color: #1ee7e2;
+}
+
+input:focus {
+  outline: none;
+  border-color: #1ee7e2;
+}
+
+input:placeholder {
+  color: #a8b2b2;
+}
+
+.radio{
+  display: flex;
+  flex-direction: column;
 }
