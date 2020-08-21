@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import * as yup from 'yup';
 import Confirmation from './Confirmation'
 
@@ -10,21 +10,35 @@ const formSchema = yup.object().shape({
         .min(2, "Name must be at least 2 characters long")
         .required("Name is a required field"),
     size: yup.string(),
-    toppings: yup
+    bacon: yup
         .boolean()
         .oneOf([false], "Please add toppings"),
-    instructions: yup.string()
+    ham: yup
+        .boolean()
+        .oneOf([false], "Please add toppings"),
+    chicken: yup
+        .boolean()
+        .oneOf([false], "Please add toppings"),
+    noPineapple: yup
+        .boolean()
+        .oneOf([false], "Please add toppings"),
+    instructions: yup.string(),
+    crust: yup.boolean()
 })
 
-const Form = () => {
+const Form = (props) => {
+    console.log(props)
     const originalPizzaState = {
         id: "",
         name: "",
-        size: "",
-        toppings: "",
-        instructions: ""
+        size: "Small",
+        bacon: false,
+        ham: false,
+        chicken: false,
+        noPineapple: false,
+        instructions: "",
+        crust: "No"
     }
-const [buttonDisabled, setButtonDisabled] = useState(true)
 const [pizzaState, setPizzaState] = useState(originalPizzaState)
 const [errorState, setErrorState] = useState(originalPizzaState)
 const [pizzaList, setPizzaList] = useState([])
@@ -68,13 +82,6 @@ const submitForm = (event) => {
         .catch(error => console.log(error))
   };
 
-  useEffect(() => {
-    formSchema.isValid(pizzaState)
-    .then(valid => {
-        setButtonDisabled(!valid);
-    });
-}, [pizzaState])
-
 
 
   return (
@@ -94,53 +101,53 @@ const submitForm = (event) => {
                 {errorState.name.length > 0 ? <p className="error">{errorState.name}</p> : null}
             </label>
             <label > Pizza Size?
-            <select 
-            value={pizzaState.size}
-            name="size"
-            data-cy="size"
-            id="size"
-            onChange={handleChanges}>
-                <option value="Small">Small</option>
-                <option value="Medium">Medium</option>
-                <option value="Large">Large</option>
-            </select>
+                <select 
+                value={pizzaState.size}
+                name="size"
+                data-cy="size"
+                id="size"
+                onChange={handleChanges}>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                </select>
             </label>
             <label> 
-            <p>What are your toppings?</p>
+                <p>What are your toppings?*</p>
                 Bacon
                 <input 
-                value={pizzaState.toppings}
+                value={pizzaState.bacon}
                 type="checkbox"
-                name="toppings"
-                data-cy="toppings"
-                id="toppings"
+                name="bacon"
+                data-cy="bacon"
+                id="bacon"
                 onChange={handleChanges}>
                 </input>
                 Ham
                 <input 
-                value={pizzaState.toppings}
+                value={pizzaState.ham}
                 type="checkbox"
-                name="toppings"
-                data-cy="toppings"
-                id="toppings"
+                name="ham"
+                data-cy="ham"
+                id="ham"
                 onChange={handleChanges}>
                 </input>
                 Chicken
                 <input 
-                value={pizzaState.toppings}
+                value={pizzaState.chicken}
                 type="checkbox"
-                name="toppings"
-                data-cy="toppings"
-                id="toppings"
+                name="chicken"
+                data-cy="chicken"
+                id="chicken"
                 onChange={handleChanges}>
                 </input>
                 No pineapple
                 <input 
-                value={pizzaState.toppings}
+                value={pizzaState.noPineapple}
                 type="checkbox"
-                name="toppings"
-                data-cy="toppings"
-                id="toppings"
+                name="noPineapple"
+                data-cy="noPineapple"
+                id="noPineapple"
                 onChange={handleChanges}>
                 </input>
                 {errorState.toppings ? <p className="error">{errorState.toppings}</p> : null} 
@@ -154,21 +161,30 @@ const submitForm = (event) => {
                 onChange={handleChanges}>
                 </textarea>
             </label>
+            <p>Gluten-Free Crust?</p>
+            <label > 
+                <select 
+                value={pizzaState.crust}
+                name="crust"
+                data-cy="crust"
+                id="crust"
+                onChange={handleChanges}>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </label>
             <label>
-                <button 
-                    id="button"
-                    name="button"
-                    data-cy="submit"
-                    disabled={buttonDisabled} 
-                    type="submit">
-                    Submit Pizza
-                </button>
-                
+            
+                    <button 
+                        id="button"
+                        name="button"
+                        data-cy="submit"
+                        type="submit">
+                        Submit Pizza
+                    </button>
+             
             </label>
         </form>
-        <Route exact path="/confirm">
-            <Confirmation />
-        </Route>
     </div>
   )};
 export default Form;
